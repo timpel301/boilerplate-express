@@ -4,15 +4,16 @@ require('dotenv').config();
 
 console.log('Hello World');
 
+app.use('/public', express.static(__dirname + '/public'));
+
 app.use(function middleware(req, res, next){
-    res.log(req.method+' '+req.path+' '+'-'+' '+req.ip)
+    console.log(req.method+' '+req.path+' '+'-'+' '+req.ip);
     next();
 });
+
 app.get('/', function(req, res) {
     res.sendFile(__dirname + '/views/index.html')
 });
-
-app.use('/public', express.static(__dirname + '/public'));
 
 app.get('/json', function(req, res) {
     process.env.MESSAGE_STYLE
